@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="www.thymeleaf.org ">
+<html lang="en" xmlns:th="www.thymeleaf.org " xmlns:sec="www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -26,10 +26,10 @@
             <th>Actions</th>
         </tr>
         <tr th:each="row : ${books}">
-            <td></td>
+            <td> <img th:src="${row.image}" th:alt="${{row.title}+' cover goes here'}" height="50"/> </td>
             <td th:text="${row.title}"></td>
             <td th:text="${row.author}"></td>
-            <td><a href="#" th:href="@{/books/edit/{bookid} (bookid = ${row.id})}">Update</a> -
+            <td sec:authorize="hasRole('ROLE_ADMIN')"><a href="#" th:href="@{/books/edit/{bookid} (bookid = ${row.id})}">Update</a> -
                 <a href="#" th:href="@{/books/delete/{bookid} (bookid = ${row.id})}">Delete</a>
             </td>
         </tr>
