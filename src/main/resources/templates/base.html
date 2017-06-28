@@ -28,7 +28,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">Project name</a>
+                <a class="navbar-brand" href="/">The Library</a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
@@ -38,7 +38,7 @@
                     <li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="icon-bar" sec:authorize="isAuthenticated()"><a href="#">Welcome, <span sec:authentication="name">...</span></a></li>
+                    <li class="icon-bar" sec:authorize="isAuthenticated()"><a href="#">Welcome, <span sec:authentication="principal.authorities">ROLE_USER, ROLE_ADMIN</span> <span sec:authentication="name">...</span></a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
@@ -46,9 +46,7 @@
     <div class="container">
 
         <div class="starter-template">
-            <h1>Securex</h1>
-            <p class="lead">Use this document as a way to quickly start any new project.<br/> All you get is this text and a mostly barebones HTML document.</p>
-        </div>
+             </div>
 
     </div><!-- /.container -->
     <th:block th:fragment="footlinks">

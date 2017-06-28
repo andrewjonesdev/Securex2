@@ -17,4 +17,8 @@ public class HomeController {
         return "login";
     }
 
+    @RequestMapping("/books")
+    public String redirect(){
+        return "redirect:/";
+    }
 }

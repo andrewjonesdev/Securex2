@@ -1,5 +1,8 @@
 package byAJ.Securex.configs;
 
+import byAJ.Securex.repositories.UserRepository;
+import byAJ.Securex.services.SSUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,6 +18,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -22,6 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                     .antMatchers("/").permitAll()
                     .antMatchers("/books/edit/**").hasRole("ADMIN")
                     .antMatchers("/css/**").permitAll()
+                    .antMatchers("/books/list").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
@@ -46,5 +53,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .withUser("fi").password("becold").roles("USER")
                 .and()
                 .withUser("root").password("godofweb").roles("ADMIN");
+        auth.userDetailsService(userDetailsServiceBean());
     }
+
+    @Override
+    public UserDetailsService userDetailsServiceBean() throws Exception{
+        return new SSUserDetailsService(userRepository);
+    }
+
 }
